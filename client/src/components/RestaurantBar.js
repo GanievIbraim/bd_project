@@ -7,6 +7,7 @@ const RestaurantBar = observer(() => {
     const { food } = useContext(Context)
     return (
         <ListGroup>
+            <h4>Рестораны</h4>
             {food.restaurants.map(restaurant =>
                 <ListGroup.Item
                     style={{ cursor: 'pointer' }}

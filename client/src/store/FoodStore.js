@@ -18,6 +18,7 @@ export default class FoodStore {
 
         ]
         this._selectedRestaurant = []
+        this._selectedCategory = []
         makeAutoObservable(this)
     }
 
@@ -34,6 +35,9 @@ export default class FoodStore {
     setSelectedRestaurant(restaurant) {
         this._selectedRestaurant = restaurant
     }
+    setSelectedCategory(category) {
+        this._selectedCategory = category
+    }
 
     get categories() {
         return this._categories
@@ -46,5 +50,8 @@ export default class FoodStore {
     }
     get selectedRestaurant() {
         return this._selectedRestaurant
+    }
+    get selectedCategory() {
+        return this._selectedCategory
     }
 }
