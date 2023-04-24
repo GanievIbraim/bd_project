@@ -11,7 +11,7 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route
-        path="/admin"
+        path="admin"
         element={
           <RequireAuth>
             <Admin />
@@ -20,7 +20,7 @@ const AppRouter = () => {
       />
 
       <Route
-        path="/order"
+        path="order"
         element={
           <RequireAuth>
             <Order />
@@ -28,10 +28,10 @@ const AppRouter = () => {
         }
       />
 
-      <Route path="/login" element={<Auth />} />
-      <Route path="/registration" element={<Auth />} />
-      <Route path="/food" element={<FoodPage />} />
-      <Route path="/service" element={<Service />} />
+      <Route path="login" element={<Auth />} />
+      <Route path="registration" element={<Auth />} />
+      <Route path="food/:id" element={<FoodPage />} />
+      <Route path="/" element={<Service />} />
       <Route path="*" element={<Notfoundpage />} />
     </Routes>
   );

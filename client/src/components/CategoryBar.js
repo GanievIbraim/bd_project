@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
-import ListGroup from "react-bootstrap/ListGroup";
 import { Card, Row, Col } from "react-bootstrap";
 
 const CategoryBar = observer(() => {

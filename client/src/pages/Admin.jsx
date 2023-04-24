@@ -1,10 +1,21 @@
-const Admin = () => {
-    return (
-        <div>
-            <h1>Admin</h1>
-            <p>This is the Admin page</p>
-        </div>
-    )
-}
+import React from "react";
+import { Container } from "react-bootstrap";
+import CreateRestaurant from "../components/modals/CreateRestaurant";
+import CreateCategory from "../components/modals/CreateCategory";
+import CreateFood from "../components/modals/CreateFood";
 
-export {Admin}
+
+const Admin = () => {
+
+  return (
+    <Container className="d-flex flex-column">
+    
+      <CreateRestaurant/>
+      <CreateCategory/>
+      <CreateFood/>
+
+    </Container>
+  );
+};
+
+export { Admin };
