@@ -25,12 +25,15 @@ export const createFood = async (food) => {
   return data;
 };
 
-export const fetchFoods = async () => {
-  const { data } = await $host.get("/api/food");
-  return data;
-};
+export const fetchFoods = async (restaurantId, categoryId, page, limit= 5) => {
+  const {data} = await $host.get('api/food', {params: {
+    restaurantId, categoryId, page, limit
+      }})
+  return data
+}
 
 export const fetchOneFood = async (id) => {
   const { data } = await $host.get("/api/food/" + id);
   return data;
 };
+

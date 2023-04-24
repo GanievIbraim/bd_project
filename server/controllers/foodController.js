@@ -18,27 +18,25 @@ class FoodController{
         }
     }
 
-    async getAll(req, res){
+    async getAll(req, res) {
         let {categoryId, restaurantId, limit, page} = req.query
         page = page || 1
-        limit = limit || 1
+        limit = limit || 9
         let offset = page * limit - limit
-
         let foods;
-        if (!categoryId && !restaurantId){
+        if (!categoryId && !restaurantId) {
             foods = await Food.findAndCountAll({limit, offset})
         }
-        if (categoryId && !restaurantId){
-            foods = await Food.findAndCountAll({where: {categoryId}, limit, offset})
+        if (categoryId && !restaurantId) {
+            foods = await Food.findAndCountAll({where:{categoryId}, limit, offset})
         }
-        if (!categoryId && restaurantId){
-            foods = await Food.findAndCountAll({where: {restaurantId}, limit, offset})
+        if (!categoryId && restaurantId) {
+            foods = await Food.findAndCountAll({where:{restaurantId}, limit, offset})
         }
-        if (categoryId && restaurantId){
-            foods = await Food.findAndCountAll({where: {restaurantId, categoryId}, limit, offset})
+        if (categoryId && restaurantId) {
+            foods = await Food.findAndCountAll({where:{restaurantId, categoryId}, limit, offset})
         }
         return res.json(foods)
-
     }
 
     async getOne(req, res){
