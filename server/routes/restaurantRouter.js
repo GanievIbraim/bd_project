@@ -5,6 +5,6 @@ const checkRole = require('../middleware/checkRoleMiddleware')
 
 router.post('/', checkRole('ADMIN'), restaurantController.create)
 router.get('/', restaurantController.getAll)
-router.delete('/',  checkRole('ADMIN'), restaurantController.deleteItem) 
+router.delete('/',  restaurantController.deleteItem) 
 
 module.exports = router

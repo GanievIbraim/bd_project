@@ -26,7 +26,7 @@ const Auth = observer(() => {
       } else {
         data = await registration(email, password);
       }
-      user.setUser(user);
+      user.setUser(data);
       user.setIsAuth(true);
       navigate(SERVICE_ROUTE);
     } catch (e) {

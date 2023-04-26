@@ -5,7 +5,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
-import { Link } from "react-router-dom";
 import { ADMIN_ROUTE, LOGIN_ROUTE } from "../utils/consts";
 
 const NavBar = observer(() => {
@@ -19,7 +18,7 @@ const NavBar = observer(() => {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/">Delivery Service</Navbar.Brand>
+        <Navbar.Brand href="/service">Delivery Service</Navbar.Brand>
         {user.isAuth ? (
           <Nav className="ml-auto">
             <Button href={`${ADMIN_ROUTE}`} variant="outline-light">
@@ -36,14 +35,9 @@ const NavBar = observer(() => {
           </Nav>
         ) : (
           <Nav className="ml-auto">
-            <Link to="/registration">
-              <Button
-                variant="outline-light"
-                href={`${LOGIN_ROUTE}`}
-              >
-                Авторизация
-              </Button>
-            </Link>
+            <Button variant="outline-light" href={`${LOGIN_ROUTE}`}>
+              Авторизация
+            </Button>
           </Nav>
         )}
       </Container>

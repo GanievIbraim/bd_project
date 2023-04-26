@@ -2,8 +2,9 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import CreateRestaurant from "../components/modals/CreateRestaurant";
 import CreateCategory from "../components/modals/CreateCategory";
+import DeleteRestaurant from "../components/modals/DeleteRestaurant";
+import DeleteCategory from "../components/modals/DeleteCategory";
 import CreateFood from "../components/modals/CreateFood";
-
 
 const Admin = () => {
 
@@ -13,7 +14,8 @@ const Admin = () => {
       <CreateRestaurant/>
       <CreateCategory/>
       <CreateFood/>
-
+      <DeleteRestaurant/>
+      <DeleteCategory/>
     </Container>
   );
 };

@@ -3,6 +3,7 @@ import { $authHost, $host } from "./index";
 export const createRestaurant = async (restaurant) => {
   const { data } = await $authHost.post("/api/restaurant", restaurant);
   return data;
+
 };
 
 export const fetchRestaurants = async () => {
@@ -19,6 +20,7 @@ export const fetchCategories = async () => {
   const { data } = await $host.get("/api/category");
   return data;
 };
+
 
 export const createFood = async (food) => {
   const { data } = await $authHost.post("/api/food", food);

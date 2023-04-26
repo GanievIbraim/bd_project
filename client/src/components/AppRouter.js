@@ -31,7 +31,7 @@ const AppRouter = () => {
       <Route path="login" element={<Auth />} />
       <Route path="registration" element={<Auth />} />
       <Route path="food/:id" element={<FoodPage />} />
-      <Route path="/" element={<Service />} />
+      <Route path="/service" element={<Service />} />
       <Route path="*" element={<Notfoundpage />} />
     </Routes>
   );
