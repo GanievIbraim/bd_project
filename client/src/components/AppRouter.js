@@ -5,6 +5,8 @@ import { FoodPage } from "../pages/FoodPage";
 import { Notfoundpage } from "../pages/Notfoundpage";
 import { Order } from "../pages/Order";
 import { Service } from "../pages/Service";
+import { Spravka } from "../pages/Spravka";
+import { ProfileCard } from "../pages/ProfileCard";
 import { RequireAuth } from "../hoc/RequireAuth";
 
 const AppRouter = () => {
@@ -31,8 +33,11 @@ const AppRouter = () => {
       <Route path="login" element={<Auth />} />
       <Route path="registration" element={<Auth />} />
       <Route path="food/:id" element={<FoodPage />} />
-      <Route path="/service" element={<Service />} />
+      <Route path="/" element={<Service />} />
+      <Route path="/spravka" element={<Spravka />} />
+      <Route path="/profile" element={<ProfileCard />} />
       <Route path="*" element={<Notfoundpage />} />
+      
     </Routes>
   );
 };

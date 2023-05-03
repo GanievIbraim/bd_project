@@ -33,37 +33,21 @@ class FoodController {
     let offset = page * limit - limit;
     let foods;
     if (!categoryId && !restaurantId) {
-      foods = await Food.findAndCountAll({
-        limit,
-        offset,
-      });
+      foods = await Food.findAndCountAll({limit,offset,});
     }
     if (categoryId && !restaurantId) {
       foods = await Food.findAndCountAll({
-        where: {
-          categoryId,
-        },
-        limit,
-        offset,
+        where: {categoryId,},limit,offset,
       });
     }
     if (!categoryId && restaurantId) {
       foods = await Food.findAndCountAll({
-        where: {
-          restaurantId,
-        },
-        limit,
-        offset,
+        where: {restaurantId,},limit,offset,
       });
     }
     if (categoryId && restaurantId) {
       foods = await Food.findAndCountAll({
-        where: {
-          restaurantId,
-          categoryId,
-        },
-        limit,
-        offset,
+        where: {restaurantId,categoryId,},limit,offset,
       });
     }
     return res.json(foods);
@@ -87,6 +71,41 @@ class FoodController {
       },
     });
     return res.json(food);
+  }
+
+  async updateItem(req, res, next) {
+    try {
+      let { name, price, description, categoryId, restaurantId } = req.body;
+      const { id } = req.params;
+      const { img } = req.files;
+      let fileName = uuid.v4() + ".jpg";
+      img.mv(path.resolve(__dirname, "..", "static", fileName));
+
+      const [updated] = await Food.update(
+        {
+          name,
+          price,
+          description,
+          categoryId,
+          restaurantId,
+          img: fileName,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+
+      
+      if (updated === 0) {
+        return res.status(404).send({ error: "Food not found" });
+      }
+
+      return res.json(updated);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
   }
 }
 

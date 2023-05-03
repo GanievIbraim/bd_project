@@ -2,8 +2,12 @@ import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
-import { NavLink, useLocation, useNavigate} from "react-router-dom";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SERVICE_ROUTE } from "../utils/consts";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import {
+  LOGIN_ROUTE,
+  REGISTRATION_ROUTE,
+  SERVICE_ROUTE,
+} from "../utils/consts";
 import { login, registration } from "../http/userAPI";
 import { useContext, useState } from "react";
 import { Row } from "react-bootstrap";
@@ -26,6 +30,7 @@ const Auth = observer(() => {
       } else {
         data = await registration(email, password);
       }
+
       user.setUser(data);
       user.setIsAuth(true);
       navigate(SERVICE_ROUTE);

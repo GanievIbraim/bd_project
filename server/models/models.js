@@ -116,10 +116,10 @@ Order.belongsTo(User)
 Order.hasMany(OrderFood)
 OrderFood.belongsTo(Order)
 
-Restaurant.hasMany(Food)
+Restaurant.hasMany(Food, {onDelete: 'CASCADE'})
 Food.belongsTo(Restaurant)
 
-Category.hasMany(Food)
+Category.hasMany(Food, {onDelete: 'CASCADE'})
 Food.belongsTo(Category)
 
 Food.hasMany(OrderFood)

@@ -19,7 +19,18 @@ function DeleteRestaurant() {
           data: { name: value },
         }
       );
-      console.log(result.data);
+  
+      // Получаем id удаленной категории из ответа сервера
+      const deletedRestaurantId = result.data.id;
+  
+      // Удаляем все дочерние элементы из таблицы "food"
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}api/food/`,
+        {
+          data: { restaurantId: deletedRestaurantId },
+        }
+      );
+  
       handleClose();
     } catch (error) {
       console.error(error);
@@ -58,7 +69,7 @@ function DeleteRestaurant() {
           <Button variant={"outline-dark"} onClick={handleClose}>
             Закрыть
           </Button>
-          <Button variant={"outline-danger"} onClick={delRestaurant}>
+          <Button href="/admin" variant={"outline-danger"} onClick={delRestaurant}>
             Удалить
           </Button>
         </Modal.Footer>

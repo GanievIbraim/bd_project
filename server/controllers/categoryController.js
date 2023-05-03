@@ -1,5 +1,6 @@
 const ApiError = require("../error/ApiError");
 const { Category } = require("../models/models");
+const { Food } = require("../models/models");
 
 class CategoryController {
   async create(req, res) {
@@ -34,6 +35,31 @@ class CategoryController {
       next(ApiError.badRequest(error.message));
     }
   }
+
+  async deleteCategoryAndFood (req, res) {
+    const { name } = req.body;
+  
+    try {
+      // Найти категорию для удаления
+      const category = await Category.findOne({ where: { name } });
+  
+      if (!category) {
+        return res.status(404).json({ error: "Категория не найдена" });
+      }
+  
+      // Удалить все дочерние элементы из таблицы "food"
+      await Food.destroy({ where: { categoryId: category.id } });
+  
+      // Удалить категорию
+      await Category.destroy({ where: { id: category.id } });
+  
+      return res.status(204).json();
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Ошибка сервера" });
+    }
+  };
+  
 }
 
 module.exports = new CategoryController();

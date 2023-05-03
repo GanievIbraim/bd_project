@@ -1,5 +1,6 @@
 const { Restaurant } = require("../models/models");
 const ApiError = require("../error/ApiError");
+const { Food } = require("../models/models");
 
 class RestaurantController {
   async create(req, res) {
@@ -13,25 +14,29 @@ class RestaurantController {
     return res.json(restaurants);
   }
 
-  async deleteItem(req, res, next) {
+  async deleteCategoryAndFood (req, res) {
+    const { name } = req.body;
+  
     try {
-      const { name} = req.body;
-      const result = await Restaurant.destroy({
-        where: {
-          name,
-        },
-      });
-      if (result) {
-        res.json({
-          result,
-        });
-      } else {
-        return next(ApiError.badRequest("Объекта по такому name не сущесвует"));
+      // Найти категорию для удаления
+      const restaurant = await Restaurant.findOne({ where: { name } });
+  
+      if (!restaurant) {
+        return res.status(404).json({ error: "Категория не найдена" });
       }
+  
+      // Удалить все дочерние элементы из таблицы "food"
+      await Food.destroy({ where: { restaurantId: restaurant.id } });
+  
+      // Удалить категорию
+      await Restaurant.destroy({ where: { id: restaurant.id } });
+  
+      return res.status(204).json();
     } catch (error) {
-      next(ApiError.badRequest(error.message));
+      console.error(error);
+      return res.status(500).json({ error: "Ошибка сервера" });
     }
-  }
+  };
 
 }
 

@@ -3,10 +3,20 @@ import { Card, Button, Col, Container, Image, Row, Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { fetchOneFood, fetchFoods } from "../http/foodAPI";
 import axios from "axios";
+import UpdateFood from "../components/modals/UpdateFood";
+import { observer } from "mobx-react-lite";
+import { useContext } from "react";
+import { Context } from "../index";
 
-const FoodPage = () => {
+const FoodPage = observer(() => {
   const [food, setFood] = useState({ info: [] });
   const { id } = useParams();
+  const { user } = useContext(Context);
+
+  const logOut = () => {
+    user.setUser({});
+    user.setIsAuth(false);
+  };
 
   useEffect(() => {
     fetchOneFood(id).then((food) => setFood(food));
@@ -24,8 +34,8 @@ const FoodPage = () => {
   return (
     <Container className="mt-4">
       <h1>Карточка блюда</h1>
-    
-      <Row style={{marginTop: "30px"}}>
+
+      <Row style={{ marginTop: "30px" }}>
         {/* Колонка с картинкой */}
         <Col sm={3}>
           <Image
@@ -38,7 +48,6 @@ const FoodPage = () => {
           <Card
             className="d-flex flex-column align-items-center justify-content-around"
             style={{
-              
               height: "100%",
               fontSize: 32,
               border: "0px solid lightgray",
@@ -47,23 +56,38 @@ const FoodPage = () => {
             <h2>{food.name}</h2>
             <h3>От: {food.price} руб.</h3>
             <p style={{ fontSize: "1.1rem" }}>{food.description}</p>
-            <Nav className="ml-auto">
-            <Button variant={"success"} style={{marginRight: "5px"}}>Добавить в корзину</Button>
-              <Button
-                style={{ display: "inline"}}
-                variant={"danger"}
-                href="/service"
-                onClick={() => handleDelete(food.id)}
-              >
-                Удалить
-              </Button>
-              
-            </Nav>
+            {user.isAuth ? (
+              <Nav className="ml-auto">
+                <Button variant={"success"} style={{ marginRight: "5px" }}>
+                  Добавить в корзину
+                </Button>
+                <UpdateFood oldFood={food} />
+                <Button
+                  style={{ display: "inline", marginLeft: "5px" }}
+                  variant={"danger"}
+                  href="/"
+                  onClick={() => handleDelete(food.id)}
+                >
+                  Удалить
+                </Button>
+              </Nav>
+            ) : (
+              <Row className="d-flex flex-column align-items-center justify-content-around">
+                <h5>Войдите, чтобы добавить в корзину</h5>
+                <Button
+                  style={{ display: "inline", marginLeft: "5px" }}
+                  variant={"danger"}
+                  href="/login"
+                >
+                  Войти
+                </Button>
+              </Row>
+            )}
           </Card>
         </Col>
       </Row>
     </Container>
   );
-};
+});
 
 export { FoodPage };
